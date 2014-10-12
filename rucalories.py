@@ -22,5 +22,4 @@ def calculate():
 	return render_template('results.html', total=total)
 	
 if __name__ == '__main__':
-	app.debug = True
 	app.run()
