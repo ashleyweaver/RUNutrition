@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+		<title>RU Calories</title>
+	</head>
+	<body>
+		<h1>Welcome to RU Calories!</h1>
+		{% for hall in data %}
+			<h2>{{ hall.location_name }}</h2>
+			{% for meal in hall.meals %}
+				<h3>{{ meal.meal_name }}</h3>
+				{% for category in meal.genres %}
+					{% for item in category['items'] %}
+						<li>{{ item.name }} , {{item.calories}}</li>
+					{% endfor %}
+				{% endfor %}
+			{% endfor %}
+		{% endfor %}
+	</body>
+</html>
