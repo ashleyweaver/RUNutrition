@@ -6,23 +6,46 @@
 	<body>
 		<h1>Welcome to RU Calories!</h1>
 		<p>Note: calorie counts are not guaranteed to be correct. This is not my fault, blame whoever made the Food API. Some foods may not have calorie counts at all. Sorry.</p>
+		<div>
+			<h4>Jump to Dining Hall:</h4>
+			{% for hall in data %}
+				<li>
+					<a href="#hall{{ loop.index }}">{{ hall.location_name }}</a>
+				</li>
+			{% endfor %}
+
+			<!-- <li>
+				<a href="#BrowerCommons">Brower Commons</a>
+			</li>
+			<li>
+				<a href="#LivingstonDiningCommons">Livingston Dining Commons</a>
+			</li>
+			<li>
+				<a href="#BuschDiningHall">Busch Dining Hall</a>
+			</li>
+			<li>
+				<a href="#NeilsonDiningHall">Neilson Dining Hall</a>
+			</li> -->
+		</div>
 		<form name = "input" action="/submit" method="POST">
 			{% for hall in data %}
-				<h2>{{ hall.location_name }}</h2>
-				{% for meal in hall.meals %}
-					<h3>{{ meal.meal_name }}</h3>
-					{% for category in meal.genres %}
-						{% for item in category['items'] %}
-							<li><input type="text" name=
-							{% if item.calories %}
-								{{ item.calories }}
-							{% else %}
-								"0"
-							{% endif %}
-							value="0"> servings of {{ item.name }}, calories per serving: {{ item.calories }}</li>
+				<div id="hall{{ loop.index }}">
+					<h2>{{ hall.location_name }}</h2>
+					{% for meal in hall.meals %}
+						<h3>{{ meal.meal_name }}</h3>
+						{% for category in meal.genres %}
+							{% for item in category['items'] %}
+								<li><input type="text" name=
+								{% if item.calories %}
+									{{ item.calories }}
+								{% else %}
+									"0"
+								{% endif %}
+								value="0"> servings of {{ item.name }}, calories per serving: {{ item.calories }}</li>
+							{% endfor %}
 						{% endfor %}
 					{% endfor %}
-				{% endfor %}
+				</div>
 			{% endfor %}
 			<input type="submit" value="Calculate Calories">
 		</form>
