@@ -5,16 +5,26 @@
 	</head>
 	<body>
 		<h1>Welcome to RU Calories!</h1>
-		{% for hall in data %}
-			<h2>{{ hall.location_name }}</h2>
-			{% for meal in hall.meals %}
-				<h3>{{ meal.meal_name }}</h3>
-				{% for category in meal.genres %}
-					{% for item in category['items'] %}
-						<li>{{ item.name }} , {{item.calories}}</li>
+		<p>Note: calorie counts are not guaranteed to be correct. This is not my fault, blame whoever made the Food API. Some foods may not have calorie counts at all. Sorry.</p>
+		<form name = "input" action="/submit" method="POST">
+			{% for hall in data %}
+				<h2>{{ hall.location_name }}</h2>
+				{% for meal in hall.meals %}
+					<h3>{{ meal.meal_name }}</h3>
+					{% for category in meal.genres %}
+						{% for item in category['items'] %}
+							<li><input type="text" name=
+							{% if item.calories %}
+								{{ item.calories }}
+							{% else %}
+								"0"
+							{% endif %}
+							value="0"> servings of {{ item.name }}, calories per serving: {{ item.calories }}</li>
+						{% endfor %}
 					{% endfor %}
 				{% endfor %}
 			{% endfor %}
-		{% endfor %}
+			<input type="submit" value="Calculate Calories">
+		</form>
 	</body>
 </html>
