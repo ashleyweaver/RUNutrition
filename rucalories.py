@@ -19,7 +19,7 @@ def calculate():
 		for quantity in req.getlist(calories):
 			total += int(calories)*int(quantity)
 
-	return str(total)
+	return render_template('results.html', total=total)
 	
 if __name__ == '__main__':
 	app.debug = True
